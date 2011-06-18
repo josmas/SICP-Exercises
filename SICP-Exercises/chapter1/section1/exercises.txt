@@ -1,0 +1,28 @@
+# 1.1
+-- skipping several
+
+(= a b) --> false # a=3 and b=4 previously defined and different
+(if (and (> b a) (< b (* a b)))
+  b
+  a) --> 4
+
+(cond ((= a 4) 6) ((= b 4) (+ 6 7 a)) (else 35))
+
+# 1.2
+(/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5))))) (* 3 (- 6 2) (- 2 7)))
+
+# 1.3
+(define (square x) (* x x))
+(define (sum-of-squares x y) (+ (square x) (square y)))
+(define (two-largest a b c) 
+  (cond ((and (<= a b) (<= a c))
+          (sum-of-squares b c))
+        ((and (<= b a) (<= b c))
+          (sum-of-squares a c))
+        (else
+          (sum-of-squares a b)) ))
+
+# 1.4: always adds the abs of b to a. The thing here is that it can
+choose the value of the procedure to use (+ or -) from the parameters (b).
+
+
