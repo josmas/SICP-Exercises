@@ -25,4 +25,36 @@
 # 1.4: always adds the abs of b to a. The thing here is that it can
 choose the value of the procedure to use (+ or -) from the parameters (b).
 
+# 1.5: If we could use normal-order evaluation the test (mytest 0 (p)) would
+# not go into an infinite loop because (p) would not have to be evaluated.
+
+# 1.6:
+for exercise 1.6 I need
+(define (sqrt-iter guess x)
+    (if (good-enough? guess x)
+          guess
+          (sqrt-iter (improve guess x) x )))
+          
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y) (/ (+ x y)))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+----
+(define (new-if predicate then-clause else-clause)
+  (cond (predicate then-clause)
+    (else else-clause)))
+
+(define (sqrt-iter guess x)
+  (new-if (good-enough? guess x)
+    guess
+    (sqrt-iter (improve guess x) x)))
+
+The problem is that the recursive call to sqrt-iter is evaluated (again by
+applicative order evaluation) before choosing a path and it goes in an
+infinite loop. If in Scheme is treated differently by the interpreter, but
+new-if is just another 'normal' procedure.
 
