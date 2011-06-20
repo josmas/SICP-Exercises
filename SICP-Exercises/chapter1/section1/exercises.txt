@@ -58,3 +58,17 @@ applicative order evaluation) before choosing a path and it goes in an
 infinite loop. If in Scheme is treated differently by the interpreter, but
 new-if is just another 'normal' procedure.
 
+# 1.7: The problem with a fixed .001 comes when calculating squares that are smaller than that
+# as in that they won't be very accurate. With larger numbers, .001 can make the algorithm iterate
+# way too often or even never converge. I got this solution from Jim Weirich at 
+# https://github.com/jimweirich/sicp-study/blob/master/scheme/chapter1/ex1_07.scm
+
+(define (good-enough? guess x)
+    (< (abs (- guess (/ x guess)))
+           (/ guess 1000000)) )
+
+# 1.8 : the solution here involves changing the definition of improve to:
+
+(define (improve guess x)
+    (/ (+ (/ x (square guess)) (* 2 guess))
+           3) )
